@@ -16,37 +16,38 @@ describe('Teste do Task Management Service', () => {
 
   it('Deve adicionar a Task ao final', () => {
     task_management_service.createNewTask({
-      date: new Date(2, 9, 2025),
-      hour: '10:15',
+      deadline: '02/09/2025',
+      name: 'teste',
+      status: 'em progresso',
       description: 'Iniciar testes',
     });
 
     const tasks = task_management_service.getTasks();
 
     expect(tasks[tasks.length - 1]).toStrictEqual({
-      date: new Date(2, 9, 2025),
-      hour: '10:15',
+      deadline: '02/09/2025',
+      name: 'teste',
+      status: 'em progresso',
       description: 'Iniciar testes',
     });
   });
 
   it('Deve concluir a task', () => {
     task_management_service.createNewTask({
-      date: new Date(2, 9, 2025),
-      hour: '10:15',
+      deadline: '02/09/2025',
+      name: 'teste',
+      status: 'em progresso',
       description: 'Iniciar testes',
     });
     task_management_service.concludeTask(0);
 
-    const ongoin_tasks = task_management_service.getTasks();
-    const concluded_tasks = task_management_service.getConcludedTask();
+    const tasks = task_management_service.getTasks();
 
-    expect(concluded_tasks[concluded_tasks.length - 1]).toStrictEqual({
-      date: new Date(2, 9, 2025),
-      hour: '10:15',
+    expect(tasks[0]).toStrictEqual({
+      deadline: '02/09/2025',
+      name: 'teste',
+      status: 'concluido',
       description: 'Iniciar testes',
     });
-
-    expect(ongoin_tasks.length).toBe(0);
   });
 });

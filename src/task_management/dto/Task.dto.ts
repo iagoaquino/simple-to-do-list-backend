@@ -1,12 +1,16 @@
-import { IsNotEmpty } from 'class-validator';
+import { IsIn, IsNotEmpty, IsOptional } from 'class-validator';
 
 export class TaskDTO {
-  @IsNotEmpty({ message: 'Data não pode estar vazio' })
-  date: Date;
+  @IsOptional()
+  deadline: string;
 
-  @IsNotEmpty({ message: 'Hora não pode estar vazio' })
-  hour: String;
+  @IsNotEmpty({ message: 'Nome não pode estar vazio' })
+  name: string;
 
-  @IsNotEmpty({ message: 'Uma descrição é necessaria' })
+  @IsNotEmpty({ message: 'Estado não pode estar vazio' })
+  @IsIn(['em progresso', 'concluido'])
+  status: 'em progresso' | 'concluido';
+
+  @IsOptional()
   description: string;
 }

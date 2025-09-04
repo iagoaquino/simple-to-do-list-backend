@@ -21,23 +21,41 @@ describe('Teste do Task Management Controller', () => {
   it('Testando response pattern', async () => {
     const response_get_all = await task_management_controller.getAll();
     const response_create_task = await task_management_controller.create({
-      date: new Date(2, 9, 2025),
-      hour: '10:15',
+      deadline: '02/09/2025',
+      name: 'teste',
+      status: 'em progresso',
       description: 'Iniciar testes',
     });
     const response_conclude_task =
       await task_management_controller.concludeTask(0);
 
     expect(typeof response_get_all).toBe(
-      typeof ({} as ResponsePattern<Array<TaskDTO>>),
+      typeof {
+        success: true,
+        message: '',
+        content: {
+          deadline: '02/09/2025',
+          name: 'teste',
+          status: 'em progresso',
+          description: 'Iniciar testes',
+        },
+      },
     );
 
     expect(typeof response_create_task).toBe(
-      typeof ({} as ResponsePattern<null>),
+      typeof {
+        success: true,
+        message: '',
+        content: null,
+      },
     );
 
     expect(typeof response_conclude_task).toBe(
-      typeof ({} as ResponsePattern<null>),
+      typeof {
+        success: true,
+        message: '',
+        content: null,
+      },
     );
   });
 
