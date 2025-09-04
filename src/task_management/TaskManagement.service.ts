@@ -20,9 +20,7 @@ export default class TaskManagementService {
     if (id > this.task_list.length - 1) {
       throw new BadRequestException(`Task de ID numero ${id} não existe`);
     }
-    const task: TaskDTO = this.task_list[id];
-    this.concluded_list.push(task);
-    this.task_list.splice(id, 1);
+    this.task_list[id]['status'] = 'concluido';
   }
 
   public getConcludedTask() {
